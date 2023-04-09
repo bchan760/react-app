@@ -32,9 +32,6 @@ function TableBody(props) {
     );
 }
 
-
-
-
 function Table (props) {
   return (
     <table>
