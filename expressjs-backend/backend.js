@@ -88,7 +88,7 @@ function findUserById(id) {
 app.post('/users', (req, res) => {
    const userToAdd = req.body;
    addUser(userToAdd);
-   res.status(200).end();
+   res.status(201).end(); //#1 implemented 201 http code
 });
 
 function addUser(user){

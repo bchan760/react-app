@@ -31,8 +31,11 @@ function MyApp() {
   
   async function makePostCall(person){
     try {
-       const response = await axios.post('http://localhost:8000/users', person);
-       return response;
+      const response = await axios.post('http://localhost:8000/users', person);
+      if (response.status === 201) {
+        setCharacters([...characters, person]);
+      }
+      return response;
     }
     catch (error) {
        console.log(error);
@@ -42,7 +45,7 @@ function MyApp() {
   
   function updateList(person) { 
     makePostCall(person).then( result => {
-    if (result && result.status === 200)
+    if (result && result.status === 201) // #1 implemented 201 status code
        setCharacters([...characters, person] );
     });
  }
