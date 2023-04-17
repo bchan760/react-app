@@ -73,10 +73,10 @@ app.get('/users/:id', (req, res) => {
    const id = req.params['id']; //or req.params.id
    let result = findUserById(id);
    if (result === undefined || result.length == 0)
-       res.status(404).send('Resource not found.');
+      res.status(404).send('Resource not found.');
    else {
-       result = {users_list: result};
-       res.send(result);
+      result = {users_list: result};
+      res.send(result);
    }
 });
 
@@ -91,8 +91,10 @@ app.post('/users', (req, res) => {
    res.status(201).end(); //#1 implemented 201 http code
 });
 
-function addUser(user){
-   users['users_list'].push(user);
+function addUser(user){ // #2 modified to generate id for new user object
+   const id = generateId(); // generate random ID
+   const userWithId = {...user, id}; // add ID to user object
+   users['users_list'].push(userWithId); // push user object to users_list
 }
 
 app.delete('/users/:id', (req, res) => {
@@ -110,6 +112,12 @@ function findUserIndexById(id) {
    return users['users_list'].findIndex( (user) => user['id'] === id); // or line below
    //return users['users_list'].filter( (user) => user['id'] === id);
 }
+
+function generateId() { // #2
+   const min = 1;
+   const max = 1000000;
+   return Math.floor(Math.random() * (max - min) + min);
+ } 
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

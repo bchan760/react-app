@@ -38,15 +38,15 @@ function MyApp() {
       return response;
     }
     catch (error) {
-       console.log(error);
-       return false;
+      console.log(error);
+      return false;
     }
   }
   
   function updateList(person) { 
     makePostCall(person).then( result => {
     if (result && result.status === 201) // #1 implemented 201 status code
-       setCharacters([...characters, person] );
+      setCharacters([...characters, person] );
     });
  }
 
