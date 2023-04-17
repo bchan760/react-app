@@ -94,9 +94,9 @@ app.post('/users', (req, res) => {
 function addUser(user, res){ // #2 modified to generate id for new user object
    const id = generateId(); // generate random ID
    const userWithId = {...user, id}; // add ID to user object
-   console.log(user);
+   // console.log(user);
    users['users_list'].push(userWithId); // push user object to users_list
-   console.log(userWithId);
+   // console.log(userWithId);
    res.status(201).send(userWithId); // #3 send the new user object 
 }
 
