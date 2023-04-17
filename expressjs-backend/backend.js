@@ -94,8 +94,10 @@ app.post('/users', (req, res) => {
 function addUser(user, res){ // #2 modified to generate id for new user object
    const id = generateId(); // generate random ID
    const userWithId = {...user, id}; // add ID to user object
+   console.log(user);
    users['users_list'].push(userWithId); // push user object to users_list
-   res.status(201).send(users); // #3 send the new user object 
+   console.log(userWithId);
+   res.status(201).send(userWithId); // #3 send the new user object 
 }
 
 app.delete('/users/:id', (req, res) => {
@@ -104,15 +106,13 @@ app.delete('/users/:id', (req, res) => {
    if (result === undefined || result.length == 0)
       res.status(404).send('Resource not found.');
    else {
-      result = {users_list: result};
+      //split function lookup
+      const userIndex = users['users_list'].findIndex( (user) => user['id'] === id);
+      users['users_list'].splice(userIndex, 1)
+      result = {users_list: result}; // fix this line
       res.status(204).end();
    }
 });
-
-function findUserIndexById(id) {
-   return users['users_list'].findIndex( (user) => user['id'] === id); // or line below
-   //return users['users_list'].filter( (user) => user['id'] === id);
-}
 
 function generateId() {
    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

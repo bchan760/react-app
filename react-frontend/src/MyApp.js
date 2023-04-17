@@ -9,7 +9,7 @@ function MyApp() {
   async function removeOneCharacter(index) {
     const response = await axios.delete('http://localhost:8000/users/' + characters[index].id);
     const updated = characters.filter((character, i) => {
-        return i !== index
+      return i !== index
     });
     setCharacters(updated);
   }
@@ -29,10 +29,10 @@ function MyApp() {
   async function makePostCall(person){
     try {
       const response = await axios.post('http://localhost:8000/users', person);
-      if (response.status === 201) {
-        const updatedPerson = response.data; // #3 get the updated person object from the response 
-        setCharacters([...characters, updatedPerson]);
-      }
+      // if (response.status === 201) {
+      //   const updatedPerson = response.data; // #3 get the updated person object from the response 
+      //   setCharacters([...characters, updatedPerson]);
+      // }
       return response;
     }
     catch (error) {
@@ -44,7 +44,7 @@ function MyApp() {
   function updateList(person) { 
     makePostCall(person).then( result => {
     if (result && result.status === 201) // #1 implemented 201 status code
-      setCharacters([...characters, person] );
+      setCharacters([...characters, result.data] );
     });
  }
 
