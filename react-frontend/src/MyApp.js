@@ -33,7 +33,8 @@ function MyApp() {
     try {
       const response = await axios.post('http://localhost:8000/users', person);
       if (response.status === 201) {
-        setCharacters([...characters, person]);
+        const updatedPerson = response.data; // #3 get the updated person object from the response 
+        setCharacters([...characters, updatedPerson]);
       }
       return response;
     }

@@ -95,6 +95,7 @@ function addUser(user){ // #2 modified to generate id for new user object
    const id = generateId(); // generate random ID
    const userWithId = {...user, id}; // add ID to user object
    users['users_list'].push(userWithId); // push user object to users_list
+   res.status(201).send(userWithId); // #3 send the new user object 
 }
 
 app.delete('/users/:id', (req, res) => {
